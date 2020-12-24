@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from 'src/app/model/cart.model';
+import { ConnectionService } from 'src/app/model/connection.service';
 
 @Component({
   selector: 'app-cart-detail',
@@ -7,8 +8,13 @@ import { Cart } from 'src/app/model/cart.model';
   styleUrls: ['./cart-detail.component.css']
 })
 export class CartDetailComponent implements OnInit {
+  public connected: boolean = true;
 
-  constructor(public cart: Cart) { }
+  constructor(public cart: Cart,
+    private connection: ConnectionService) {
+      this.connected = this.connection.connected;
+      connection.Changes.subscribe((state) => this.connected = state);
+     }
 
   ngOnInit(): void {
   }
